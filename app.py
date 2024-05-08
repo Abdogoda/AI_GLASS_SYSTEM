@@ -48,7 +48,7 @@ class AiGlassesSystem:
                 sound.play()
                 recognizer.adjust_for_ambient_noise(source)
                 print("AI Glasses: I am Listening...")
-                audio = recognizer.listen(source, 10, 3)
+                audio = recognizer.listen(source, 8, 3)
 
             try:
                 command = str(recognizer.recognize_google(audio).lower())
@@ -66,7 +66,7 @@ class AiGlassesSystem:
                 if  "describe" in command :
                     self.capture_and_process("describe")
                 
-                if  "read" in command :
+                if  "read text" in command :
                     self.capture_and_process("text")
                 
                 elif command.startswith("find"):
