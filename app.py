@@ -6,7 +6,6 @@ import cv2
 import time
 import pyttsx3
 import threading
-import wikipedia
 import pygame.mixer
 from datetime import datetime
 import speech_recognition as sr
@@ -49,7 +48,7 @@ class AiGlassesSystem:
                 sound.play()
                 recognizer.adjust_for_ambient_noise(source)
                 print("AI Glasses: I am Listening...")
-                audio = recognizer.listen(source)
+                audio = recognizer.listen(source, 10, 3)
 
             try:
                 command = str(recognizer.recognize_google(audio).lower())
@@ -67,7 +66,7 @@ class AiGlassesSystem:
                 if  "describe" in command :
                     self.capture_and_process("describe")
                 
-                if  "text" in command :
+                if  "read" in command :
                     self.capture_and_process("text")
                 
                 elif command.startswith("find"):
@@ -79,14 +78,6 @@ class AiGlassesSystem:
                 elif  "stop" in command :
                     self.stop_video_loop()
                 
-                # else:
-                #     try:
-                #         wiki_res = wikipedia.summary(command, sentences = 1)
-                #         self.speak_and_print(wiki_res, "AI Glasses")
-                #     except:
-                #         print("AI Glasses: Something went wrong!")
-                #         continue
-
             except sr.UnknownValueError:
                 print("AI Glasses: Could not understand audio, try again.")
             except sr.RequestError as e:
